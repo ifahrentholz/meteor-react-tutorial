@@ -15,11 +15,15 @@ Meteor.startup(() => {
     _.times(5000, () => {
       const {name, email, phone} = helpers.createCard();
       Employees.insert({
-        name, 
+        name,
         email,
         phone,
         avatar: image.avatar()
       });
     });
   }
+
+  Meteor.publish('employees', (PER_PAGE = 20) => {
+    return Employees.find({}, { limit: PER_PAGE });
+  });
 });
